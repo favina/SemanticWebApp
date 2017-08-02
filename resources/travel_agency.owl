@@ -1,0 +1,1642 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY faa "http://www.le.ac.uk/travelAgencyOntology.owl#" >
+    <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
+    <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.le.ac.uk/travelAgencyOntology.owl#"
+     xml:base="http://www.le.ac.uk/travelAgencyOntology.owl"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:faa="http://www.le.ac.uk/travelAgencyOntology.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.le.ac.uk/travelAgencyOntology.owl">
+        <rdfs:comment>This is the travel ontology I have created for assignment two. It features different classes mostly focuing on Accomodation, Customer and Package.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Incoporate -->
+
+    <owl:ObjectProperty rdf:about="&faa;Incoporate">
+        <rdfs:range rdf:resource="&faa;Budget"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#canPay -->
+
+    <owl:ObjectProperty rdf:about="&faa;canPay">
+        <rdfs:comment>Only customer can pay for the package</rdfs:comment>
+        <rdfs:domain rdf:resource="&faa;Customer"/>
+        <rdfs:range rdf:resource="&faa;Package"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#categorizedBy -->
+
+    <owl:ObjectProperty rdf:about="&faa;categorizedBy">
+        <rdfs:comment>Customer is categorized by  types for example Couple, Family, Group which will instances of Customer_Type class</rdfs:comment>
+        <rdfs:range rdf:resource="&faa;Customer"/>
+        <rdfs:domain rdf:resource="&faa;Customer_Type"/>
+        <owl:inverseOf rdf:resource="&faa;isCategorized"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#consistof -->
+
+    <owl:ObjectProperty rdf:about="&faa;consistof">
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&faa;Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#hasAvaliable -->
+
+    <owl:ObjectProperty rdf:about="&faa;hasAvaliable">
+        <rdfs:comment rdf:datatype="&xsd;string">A city and accomodation is included in a package.</rdfs:comment>
+        <rdfs:range rdf:resource="&faa;Package"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&faa;Accomodation"/>
+                    <rdf:Description rdf:about="&faa;City"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#hasRating -->
+
+    <owl:ObjectProperty rdf:about="&faa;hasRating">
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&faa;Rating"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#hasToDo -->
+
+    <owl:ObjectProperty rdf:about="&faa;hasToDo">
+        <rdfs:range rdf:resource="&faa;Activity"/>
+        <rdfs:domain rdf:resource="&faa;City"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#isCategorized -->
+
+    <owl:ObjectProperty rdf:about="&faa;isCategorized">
+        <rdfs:comment></rdfs:comment>
+        <rdfs:domain rdf:resource="&faa;Customer"/>
+        <rdfs:range rdf:resource="&faa;Customer_Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#isIncluded -->
+
+    <owl:ObjectProperty rdf:about="&faa;isIncluded">
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&faa;Package"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#recommend -->
+
+    <owl:ObjectProperty rdf:about="&faa;recommend">
+        <rdfs:range rdf:resource="&faa;Activity"/>
+        <rdfs:domain rdf:resource="&faa;Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#reserve -->
+
+    <owl:ObjectProperty rdf:about="&faa;reserve">
+        <rdfs:domain rdf:resource="&faa;Customer"/>
+        <rdfs:range rdf:resource="&faa;Package"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#selects -->
+
+    <owl:ObjectProperty rdf:about="&faa;selects">
+        <rdfs:range rdf:resource="&faa;City"/>
+        <rdfs:domain rdf:resource="&faa;Customer"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#situatedIn -->
+
+    <owl:ObjectProperty rdf:about="&faa;situatedIn">
+        <rdfs:comment rdf:datatype="&xsd;string">An accomodation is situated in a city and the city has the accomodation 
+      so the relationship is symmetric.</rdfs:comment>
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&faa;City"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#suitableFor -->
+
+    <owl:ObjectProperty rdf:about="&faa;suitableFor">
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&faa;Customer_Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#toVisit -->
+
+    <owl:ObjectProperty rdf:about="&faa;toVisit">
+        <rdfs:comment>City class will have &quot;toVisit&quot; relation to place class.</rdfs:comment>
+        <rdfs:domain rdf:resource="&faa;City"/>
+        <rdfs:range rdf:resource="&faa;Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Acc_Avalibility -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Acc_Avalibility">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&rdf;List"/>
+                        <rdf:first rdf:datatype="&xsd;boolean">false</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&rdf;List"/>
+                                <rdf:first rdf:datatype="&xsd;boolean">true</rdf:first>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </rdfs:range>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Acc_ID -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Acc_ID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Acc_Location -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Acc_Location">
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Acc_Name -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Acc_Name">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Acc_ProvidesBreakfast -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Acc_ProvidesBreakfast">
+        <rdfs:domain rdf:resource="&faa;Accomodation"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Activity_Mode -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Activity_Mode">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Activity"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Activity_Name -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Activity_Name">
+        <rdfs:domain rdf:resource="&faa;Activity"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Attraction_Location -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Attraction_Location">
+        <rdfs:domain rdf:resource="&faa;Attraction"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Attraction_Name -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Attraction_Name">
+        <rdfs:domain rdf:resource="&faa;Attraction"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#City_ID -->
+
+    <owl:DatatypeProperty rdf:about="&faa;City_ID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;City"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#City_Name -->
+
+    <owl:DatatypeProperty rdf:about="&faa;City_Name">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;City"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#City_Type -->
+
+    <owl:DatatypeProperty rdf:about="&faa;City_Type">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;City"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Cust_ID -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Cust_ID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Customer"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GT_Details -->
+
+    <owl:DatatypeProperty rdf:about="&faa;GT_Details">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GT_ID -->
+
+    <owl:DatatypeProperty rdf:about="&faa;GT_ID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GT_Location -->
+
+    <owl:DatatypeProperty rdf:about="&faa;GT_Location">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GT_MultiLocations -->
+
+    <owl:DatatypeProperty rdf:about="&faa;GT_MultiLocations">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GT_Timing -->
+
+    <owl:DatatypeProperty rdf:about="&faa;GT_Timing">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;GuidedTour"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Person_Gender -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Person_Gender">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Person_Name -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Person_Name">
+        <rdfs:domain rdf:resource="&faa;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Person_dob -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Person_dob">
+        <rdfs:domain rdf:resource="&faa;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_Avalibility -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_Avalibility">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_Detail -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_Detail">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_Duration -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_Duration">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_GuidedTour -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_GuidedTour">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_ID -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_ID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_budget -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_budget">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Pkg_type -->
+
+    <owl:DatatypeProperty rdf:about="&faa;Pkg_type">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="&faa;Package"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Accomodation -->
+
+    <owl:Class rdf:about="&faa;Accomodation">
+        <rdfs:comment>Accomodation class listing all the different types of accomodations avalible in all the cities</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Activity -->
+
+    <owl:Class rdf:about="&faa;Activity">
+        <rdfs:comment xml:lang="en">The activity class lists two different types Adventure and Relaxation</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Adventure -->
+
+    <owl:Class rdf:about="&faa;Adventure">
+        <rdfs:subClassOf rdf:resource="&faa;Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Attraction -->
+
+    <owl:Class rdf:about="&faa;Attraction">
+        <rdfs:subClassOf rdf:resource="&faa;Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#BnB -->
+
+    <owl:Class rdf:about="&faa;BnB">
+        <rdfs:subClassOf rdf:resource="&faa;Accomodation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Budget -->
+
+    <owl:Class rdf:about="&faa;Budget">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&faa;Economy"/>
+                    <rdf:Description rdf:about="&faa;Premium"/>
+                    <rdf:Description rdf:about="&faa;Luxury"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment>The 3 different types of budget avalibale for customer to choose from: Economy, Premiem and Luxury</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Bushcraft -->
+
+    <owl:Class rdf:about="&faa;Bushcraft">
+        <rdfs:subClassOf rdf:resource="&faa;Adventure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#City -->
+
+    <owl:Class rdf:about="&faa;City">
+        <rdfs:comment>The instances of city will be cities tht will be included in the Package class</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Customer -->
+
+    <owl:Class rdf:about="&faa;Customer">
+        <rdfs:subClassOf rdf:resource="&faa;Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;categorizedBy"/>
+                <owl:onClass rdf:resource="&faa;Customer_Type"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;reserve"/>
+                <owl:someValuesFrom rdf:resource="&faa;Package"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>Customer Class is one of the core classes. They can only do the payment, reserve some package and given exactly one discount.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Customer_Type -->
+
+    <owl:Class rdf:about="&faa;Customer_Type">
+        <rdfs:comment>Customer type highlights different customer types of customers. They are added as instances.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Fishing -->
+
+    <owl:Class rdf:about="&faa;Fishing">
+        <rdfs:subClassOf rdf:resource="&faa;Adventure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#GuidedTour -->
+
+    <owl:Class rdf:about="&faa;GuidedTour">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;consistof"/>
+                <owl:onClass rdf:resource="&faa;Place"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>This class was created to show which packages had which guided tour.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Hotel -->
+
+    <owl:Class rdf:about="&faa;Hotel">
+        <rdfs:subClassOf rdf:resource="&faa;Accomodation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Monument -->
+
+    <owl:Class rdf:about="&faa;Monument">
+        <rdfs:subClassOf rdf:resource="&faa;Attraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Package -->
+
+    <owl:Class rdf:about="&faa;Package">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;isIncluded"/>
+                <owl:onClass rdf:resource="&faa;GuidedTour"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;Incoporate"/>
+                <owl:onClass rdf:resource="&faa;Budget"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="&xsd;string">Package class describes the type of packages that the travel agency has to offer. Some package types include Autumn, Summer and Winter.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Person -->
+
+    <owl:Class rdf:about="&faa;Person">
+        <rdfs:comment rdf:datatype="&xsd;string">The person class is one of the core classes. This class has the subclasses of employee, customer and agent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Place -->
+
+    <owl:Class rdf:about="&faa;Place">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&faa;consistof"/>
+                <owl:onClass rdf:resource="&faa;GuidedTour"/>
+                <owl:minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment rdf:datatype="&xsd;string">The Place class is about the places to visit during the vacation, such as historic places , city-specific attractions, safari adventure and nature-resorts</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Rating -->
+
+    <owl:Class rdf:about="&faa;Rating">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&faa;Three_Stars"/>
+                    <rdf:Description rdf:about="&faa;Five_Stars"/>
+                    <rdf:Description rdf:about="&faa;Four_Stars"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment>Rating class contains types of ratings which will then be connected/add relation with other classses such as Package.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#AC -->
+
+    <owl:NamedIndividual rdf:about="&faa;AC"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Accomodation_Manager -->
+
+    <owl:NamedIndividual rdf:about="&faa;Accomodation_Manager">
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Autumn_Pkg -->
+
+    <owl:NamedIndividual rdf:about="&faa;Autumn_Pkg">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_ID rdf:datatype="&xsd;int">2334</Pkg_ID>
+        <Pkg_Duration rdf:datatype="&xsd;int">4</Pkg_Duration>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">4</Pkg_Avalibility>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">City tour</Pkg_GuidedTour>
+        <Pkg_Detail rdf:datatype="&xsd;string">Customers who wants a short break jsut before winter starts.</Pkg_Detail>
+        <Pkg_budget rdf:datatype="&xsd;string">Economy</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Family</Pkg_type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Autumn_Pkg2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Autumn_Pkg2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_ID rdf:datatype="&xsd;int">2334</Pkg_ID>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">4</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">4</Pkg_Duration>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">City tour</Pkg_GuidedTour>
+        <Pkg_Detail rdf:datatype="&xsd;string">Customers who wants a short break jsut before winter starts.</Pkg_Detail>
+        <Pkg_budget rdf:datatype="&xsd;string">Economy</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Family</Pkg_type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Autumn_Pkg3 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Autumn_Pkg3">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_ID rdf:datatype="&xsd;int">2335</Pkg_ID>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">4</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">4</Pkg_Duration>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">City tour</Pkg_GuidedTour>
+        <Pkg_Detail rdf:datatype="&xsd;string">Customers who wants a short break jsut before winter starts.</Pkg_Detail>
+        <Pkg_budget rdf:datatype="&xsd;string">Economy</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Family</Pkg_type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Autumn_Pkg4 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Autumn_Pkg4">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_ID rdf:datatype="&xsd;int">2334</Pkg_ID>
+        <Pkg_Duration rdf:datatype="&xsd;int">4</Pkg_Duration>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">4</Pkg_Avalibility>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">City tour</Pkg_GuidedTour>
+        <Pkg_Detail rdf:datatype="&xsd;string">Customers who wants a short break jsut before winter starts.</Pkg_Detail>
+        <Pkg_budget rdf:datatype="&xsd;string">Economy</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Family</Pkg_type>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Barcelona -->
+
+    <owl:NamedIndividual rdf:about="&faa;Barcelona">
+        <rdf:type rdf:resource="&faa;City"/>
+        <City_ID rdf:datatype="&xsd;int">759</City_ID>
+        <City_Type rdf:datatype="&xsd;string">Beach Holiday</City_Type>
+        <City_Name rdf:datatype="&xsd;string">Spain</City_Name>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg"/>
+        <hasAvaliable rdf:resource="&faa;Family_Pkg2"/>
+        <hasToDo rdf:resource="&faa;Kayaking_in_Barcelona"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg"/>
+        <hasAvaliable rdf:resource="&faa;Weekender2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Barcelona_Bnb -->
+
+    <owl:NamedIndividual rdf:about="&faa;Barcelona_Bnb">
+        <rdf:type rdf:resource="&faa;BnB"/>
+        <Acc_ID rdf:datatype="&xsd;integer">245</Acc_ID>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <Acc_Name>Barcelona_Bnb</Acc_Name>
+        <hasRating rdf:resource="&faa;Five_Stars"/>
+        <situatedIn rdf:resource="&faa;Single"/>
+        <hasAvaliable rdf:resource="&faa;Weekender2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Barcelona_Hotel -->
+
+    <owl:NamedIndividual rdf:about="&faa;Barcelona_Hotel">
+        <rdf:type rdf:resource="&faa;Hotel"/>
+        <Acc_ID rdf:datatype="&xsd;integer">685</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Barcelona_Hotel</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <situatedIn rdf:resource="&faa;Barcelona"/>
+        <hasAvaliable rdf:resource="&faa;Family_Pkg2"/>
+        <suitableFor rdf:resource="&faa;Single_1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Barcelona_Resort -->
+
+    <owl:NamedIndividual rdf:about="&faa;Barcelona_Resort">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Barcelona Resort</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <situatedIn rdf:resource="&faa;Barcelona"/>
+        <suitableFor rdf:resource="&faa;Senior"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Beach_holiday_Discount -->
+
+    <owl:NamedIndividual rdf:about="&faa;Beach_holiday_Discount"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Bikeride -->
+
+    <owl:NamedIndividual rdf:about="&faa;Bikeride">
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+        <Activity_Name>Bike Ride</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#BushcraftInBarcelona -->
+
+    <owl:NamedIndividual rdf:about="&faa;BushcraftInBarcelona">
+        <rdf:type rdf:resource="&faa;Bushcraft"/>
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+        <Activity_Name rdf:datatype="&xsd;string">Bushcraft</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Contact_1 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Contact_1"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Contact_2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Contact_2"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Contact_3 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Contact_3"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Contact_4 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Contact_4"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Contact_5 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Contact_5"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Couple -->
+
+    <owl:NamedIndividual rdf:about="&faa;Couple">
+        <rdf:type rdf:resource="&faa;Customer_Type"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#DisabledAccessRoom_1 -->
+
+    <owl:NamedIndividual rdf:about="&faa;DisabledAccessRoom_1"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Double_Room_One -->
+
+    <owl:NamedIndividual rdf:about="&faa;Double_Room_One"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Economy -->
+
+    <owl:NamedIndividual rdf:about="&faa;Economy">
+        <rdf:type rdf:resource="&faa;Budget"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Family -->
+
+    <owl:NamedIndividual rdf:about="&faa;Family">
+        <rdf:type rdf:resource="&faa;Customer_Type"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Family_Pkg -->
+
+    <owl:NamedIndividual rdf:about="&faa;Family_Pkg">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Family</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Family_Pkg2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Family_Pkg2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Couple</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Fishing_in_outskirts_of_Paris -->
+
+    <owl:NamedIndividual rdf:about="&faa;Fishing_in_outskirts_of_Paris">
+        <rdf:type rdf:resource="&faa;Fishing"/>
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+        <Activity_Name>Fishing</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Five_Stars -->
+
+    <owl:NamedIndividual rdf:about="&faa;Five_Stars">
+        <rdf:type rdf:resource="&faa;Rating"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Four_Stars -->
+
+    <owl:NamedIndividual rdf:about="&faa;Four_Stars">
+        <rdf:type rdf:resource="&faa;Rating"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Fundació_Joan_Miró -->
+
+    <owl:NamedIndividual rdf:about="&faa;Fundació_Joan_Miró">
+        <recommend rdf:resource="&faa;Bikeride"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Group_Pkg -->
+
+    <owl:NamedIndividual rdf:about="&faa;Group_Pkg">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Group_Pkg2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Group_Pkg2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Hotel_Manager -->
+
+    <owl:NamedIndividual rdf:about="&faa;Hotel_Manager">
+        <Person_Gender rdf:datatype="&xsd;string">Male</Person_Gender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Jenny -->
+
+    <owl:NamedIndividual rdf:about="&faa;Jenny">
+        <rdf:type rdf:resource="&faa;Customer"/>
+        <Cust_ID rdf:datatype="&xsd;int">8979</Cust_ID>
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+        <Person_Name rdf:datatype="&xsd;string">Jenny</Person_Name>
+        <reserve rdf:resource="&faa;Winter_Pkg"/>
+    </owl:NamedIndividual>
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Kayaking_in_Barcelona -->
+
+    <owl:NamedIndividual rdf:about="&faa;Kayaking_in_Barcelona">
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+        <Activity_Name>Kayaking</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Laundry -->
+
+    <owl:NamedIndividual rdf:about="&faa;Laundry"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Linda -->
+
+    <owl:NamedIndividual rdf:about="&faa;Linda">
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+    </owl:NamedIndividual>
+
+
+        <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Louvre -->
+
+    <owl:NamedIndividual rdf:about="&faa;Louvre">
+        <rdf:type rdf:resource="&faa;Monument"/>
+        <Attraction_Name rdf:datatype="&xsd;string">Lourve</Attraction_Name>
+        <recommend rdf:resource="&faa;Bike_ride"/>
+    </owl:NamedIndividual>
+
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Luxury -->
+
+    <owl:NamedIndividual rdf:about="&faa;Luxury">
+        <rdf:type rdf:resource="&faa;Budget"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Martin -->
+
+    <owl:NamedIndividual rdf:about="&faa;Martin">
+        <rdf:type rdf:resource="&faa;Customer"/>
+        <Cust_ID rdf:datatype="&xsd;int">667</Cust_ID>
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Massage_in_Paris -->
+
+    <owl:NamedIndividual rdf:about="&faa;Massage_in_Paris">
+        <Activity_Mode rdf:datatype="&xsd;string">Relaxation</Activity_Mode>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Massage_in_Swiss_Alps -->
+
+    <owl:NamedIndividual rdf:about="&faa;Massage_in_Swiss_Alps">
+        <Activity_Mode rdf:datatype="&xsd;string">Relaxation</Activity_Mode>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Munich -->
+
+    <owl:NamedIndividual rdf:about="&faa;Munich">
+        <rdf:type rdf:resource="&faa;City"/>
+        <City_ID rdf:datatype="&xsd;int">759</City_ID>
+        <City_Type rdf:datatype="&xsd;string">Beach Holiday</City_Type>
+        <City_Name rdf:datatype="&xsd;string">Spain</City_Name>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg2"/>
+        <hasToDo rdf:resource="&faa;Bikeride"/>
+        <hasAvaliable rdf:resource="&faa;Group_Pkg2"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg2"/>
+        <hasAvaliable rdf:resource="&faa;Weekender"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Munich_Bnb -->
+
+    <owl:NamedIndividual rdf:about="&faa;Munich_Bnb">
+        <rdf:type rdf:resource="&faa;BnB"/>
+        <Acc_ID rdf:datatype="&xsd;integer">42423</Acc_ID>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <Acc_Name>Munich_Bnb</Acc_Name>
+        <situatedIn rdf:resource="&faa;Munich"/>
+        <suitableFor rdf:resource="&faa;Single"/>
+        <hasAvaliable rdf:resource="&faa;Weekender"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Munich_Hotel -->
+
+    <owl:NamedIndividual rdf:about="&faa;Munich_Hotel">
+        <rdf:type rdf:resource="&faa;Hotel"/>
+        <Acc_ID rdf:datatype="&xsd;integer">123</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Munich_Hotel</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <situatedIn rdf:resource="&faa;Barcelona"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Munich_Resort -->
+
+    <owl:NamedIndividual rdf:about="&faa;Munich_Resort">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Munich Resort</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <hasAvaliable rdf:resource="&faa;Group_Pkg2"/>
+        <situatedIn rdf:resource="&faa;Munich"/>
+        <suitableFor rdf:resource="&faa;Senior"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#PR_Barcelona -->
+
+    <owl:NamedIndividual rdf:about="&faa;PR_Barcelona">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">PR_Barcelona</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg"/>
+        <situatedIn rdf:resource="&faa;Barcelona"/>
+        <suitableFor rdf:resource="&faa;Senior"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#PR_Munich -->
+
+    <owl:NamedIndividual rdf:about="&faa;PR_Munich">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">PR_Munich</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg2"/>
+        <situatedIn rdf:resource="&faa;Munich"/>
+        <suitableFor rdf:resource="&faa;Senior"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#PR_Paris -->
+
+    <owl:NamedIndividual rdf:about="&faa;PR_Paris">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">PR_Paris</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <Acc_ProvidesBreakfast rdf:datatype="&xsd;boolean">true</Acc_ProvidesBreakfast>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg3"/>
+        <suitableFor rdf:resource="&faa;Family"/>
+        <situatedIn rdf:resource="&faa;Paris"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#PR_Swiss -->
+
+    <owl:NamedIndividual rdf:about="&faa;PR_Swiss">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">PR_Swiss</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <suitableFor rdf:resource="&faa;Senior"/>
+        <hasAvaliable rdf:resource="&faa;Winter_Pkg2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Paris -->
+
+    <owl:NamedIndividual rdf:about="&faa;Paris">
+        <rdf:type rdf:resource="&faa;City"/>
+        <City_ID rdf:datatype="&xsd;int">656</City_ID>
+        <City_Type rdf:datatype="&xsd;string">City Break</City_Type>
+        <City_Name rdf:datatype="&xsd;string">paris</City_Name>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg3"/>
+        <hasAvaliable rdf:resource="&faa;Family_Pkg"/>
+        <hasToDo rdf:resource="&faa;Fishing_in_outskirts_of_Paris"/>
+        <toVisit rdf:resource="&faa;Louvre"/>
+        <situatedIn rdf:resource="&faa;Paris_Hotel"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg3"/>
+        <toVisit rdf:resource="&faa;The_Eiffel_tower"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Paris_Bnb -->
+
+    <owl:NamedIndividual rdf:about="&faa;Paris_Bnb">
+        <rdf:type rdf:resource="&faa;BnB"/>
+        <suitableFor rdf:resource="&faa;Family"/>
+        <hasAvaliable rdf:resource="&faa;Family_Pkg"/>
+        <hasRating rdf:resource="&faa;Five_Stars"/>
+        <situatedIn rdf:resource="&faa;Paris"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Paris_Car_Hire -->
+
+    <owl:NamedIndividual rdf:about="&faa;Paris_Car_Hire"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Paris_Hotel -->
+
+    <owl:NamedIndividual rdf:about="&faa;Paris_Hotel">
+        <rdf:type rdf:resource="&faa;Hotel"/>
+        <Acc_ID rdf:datatype="&xsd;integer">685</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Paris_Hotel</Acc_Name>
+        <Acc_ProvidesBreakfast rdf:datatype="&xsd;boolean">true</Acc_ProvidesBreakfast>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <suitableFor rdf:resource="&faa;Couple"/>
+        <hasRating rdf:resource="&faa;Five_Stars"/>
+        <situatedIn rdf:resource="&faa;Paris"/>
+        <hasAvaliable rdf:resource="&faa;Summer_Pkg2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Premium -->
+
+    <owl:NamedIndividual rdf:about="&faa;Premium">
+        <rdf:type rdf:resource="&faa;Budget"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Review_1 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Review_1"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Review_2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Review_2"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Review_3 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Review_3"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Review_4 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Review_4"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#RollerCoaster_Ride -->
+
+    <owl:NamedIndividual rdf:about="&faa;RollerCoaster_Ride">
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+        <Activity_Name>RollerCoaster</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Safari_Aitana -->
+
+    <owl:NamedIndividual rdf:about="&faa;Safari_Aitana">
+        <recommend rdf:resource="&faa;BushcraftInBarcelona"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Senior -->
+
+    <owl:NamedIndividual rdf:about="&faa;Senior">
+        <rdf:type rdf:resource="&faa;Customer_Type"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Shawn -->
+
+    <owl:NamedIndividual rdf:about="&faa;Shawn">
+        <rdf:type rdf:resource="&faa;Customer"/>
+        <Cust_ID rdf:datatype="&xsd;int">667</Cust_ID>
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+        <reserve rdf:resource="&faa;Autumn_Pkg2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Single -->
+
+    <owl:NamedIndividual rdf:about="&faa;Single">
+        <rdf:type rdf:resource="&faa;Customer_Type"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Single_1 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Single_1"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Steve -->
+
+    <owl:NamedIndividual rdf:about="&faa;Steve">
+        <rdfs:comment rdf:datatype="&xsd;string">Employees can also select city in the resevation is through telephone/manual</rdfs:comment>
+        <Person_Gender rdf:datatype="&xsd;string">Male</Person_Gender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Suite_8 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Suite_8"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Summer_Pkg -->
+
+    <owl:NamedIndividual rdf:about="&faa;Summer_Pkg">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Summer_Pkg2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Summer_Pkg2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Summer_Pkg3 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Summer_Pkg3">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">5826</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Couple</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Swiss_Air -->
+
+    <owl:NamedIndividual rdf:about="&faa;Swiss_Air"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Swiss_Bnb -->
+
+    <owl:NamedIndividual rdf:about="&faa;Swiss_Bnb">
+        <rdf:type rdf:resource="&faa;BnB"/>
+        <Acc_ID rdf:datatype="&xsd;integer">245</Acc_ID>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <Acc_Name>Swiss_Bnb</Acc_Name>
+        <hasAvaliable rdf:resource="&faa;Group_Pkg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Swiss_Hotel -->
+
+    <owl:NamedIndividual rdf:about="&faa;Swiss_Hotel">
+        <rdf:type rdf:resource="&faa;Hotel"/>
+        <Acc_ID rdf:datatype="&xsd;integer">685</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Swiss_Hotel</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <hasAvaliable rdf:resource="&faa;Autumn_Pkg4"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Swiss_Resort -->
+
+    <owl:NamedIndividual rdf:about="&faa;Swiss_Resort">
+        <Acc_ID rdf:datatype="&xsd;integer">3221</Acc_ID>
+        <Acc_Name rdf:datatype="&xsd;string">Swiss Resort</Acc_Name>
+        <Acc_Avalibility rdf:datatype="&xsd;boolean">true</Acc_Avalibility>
+        <suitableFor rdf:resource="&faa;Senior"/>
+        <hasAvaliable rdf:resource="&faa;Winter_Pkg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#The_Eiffel_tower -->
+
+    <owl:NamedIndividual rdf:about="&faa;The_Eiffel_tower">
+        <rdf:type rdf:resource="&faa;Monument"/>
+        <recommend rdf:resource="&faa;Bikeride"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Three_Stars -->
+
+    <owl:NamedIndividual rdf:about="&faa;Three_Stars">
+        <rdf:type rdf:resource="&faa;Rating"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Transportation_Officer -->
+
+    <owl:NamedIndividual rdf:about="&faa;Transportation_Officer">
+        <Person_Gender rdf:datatype="&xsd;string">Male</Person_Gender>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Victor -->
+
+    <owl:NamedIndividual rdf:about="&faa;Victor">
+        <rdf:type rdf:resource="&faa;Customer"/>
+        <Cust_ID rdf:datatype="&xsd;int">668</Cust_ID>
+        <Person_Gender rdf:datatype="&xsd;string">Male</Person_Gender>
+        <reserve rdf:resource="&faa;Weekender"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#WaterRides -->
+
+    <owl:NamedIndividual rdf:about="&faa;WaterRides">
+        <Activity_Mode rdf:datatype="&xsd;string">Adventure</Activity_Mode>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Weekender -->
+
+    <owl:NamedIndividual rdf:about="&faa;Weekender">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Weekender2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Weekender2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">586</Pkg_ID>
+        <Pkg_type rdf:datatype="&xsd;string">Group</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Package suitable for any family looking for city breaks</Pkg_Detail>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Paris guided Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Premium</Pkg_budget>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Wendy -->
+
+    <owl:NamedIndividual rdf:about="&faa;Wendy">
+        <rdf:type rdf:resource="&faa;Customer"/>
+        <Cust_ID rdf:datatype="&xsd;int">667</Cust_ID>
+        <Person_Gender rdf:datatype="&xsd;string">Female</Person_Gender>
+        <reserve rdf:resource="&faa;Autumn_Pkg"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Wifi -->
+
+    <owl:NamedIndividual rdf:about="&faa;Wifi"/>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Winter_Pkg -->
+
+    <owl:NamedIndividual rdf:about="&faa;Winter_Pkg">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">967</Pkg_ID>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Alps Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Luxury</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Single</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Winter packages for customer who likes visit to the alps and enjoy skiing.</Pkg_Detail>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#Winter_Pkg2 -->
+
+    <owl:NamedIndividual rdf:about="&faa;Winter_Pkg2">
+        <rdf:type rdf:resource="&faa;Package"/>
+        <Pkg_Avalibility rdf:datatype="&xsd;int">12</Pkg_Avalibility>
+        <Pkg_Duration rdf:datatype="&xsd;int">15</Pkg_Duration>
+        <Pkg_ID rdf:datatype="&xsd;int">967</Pkg_ID>
+        <Pkg_GuidedTour rdf:datatype="&xsd;string">Alps Tour</Pkg_GuidedTour>
+        <Pkg_budget rdf:datatype="&xsd;string">Luxury</Pkg_budget>
+        <Pkg_type rdf:datatype="&xsd;string">Single</Pkg_type>
+        <Pkg_Detail rdf:datatype="&xsd;string">Winter packages for customer who likes visit to the alps and enjoy skiing.</Pkg_Detail>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#YogaClass_in_Barcelona -->
+
+    <owl:NamedIndividual rdf:about="&faa;YogaClass_in_Barcelona">
+        <Activity_Mode rdf:datatype="&xsd;string">Relaxation</Activity_Mode>
+        <Activity_Name>Massage</Activity_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#barcelona_city_tour -->
+
+    <owl:NamedIndividual rdf:about="&faa;barcelona_city_tour">
+        <rdf:type rdf:resource="&faa;GuidedTour"/>
+        <GT_Timing rdf:datatype="&xsd;integer">10</GT_Timing>
+        <GT_ID rdf:datatype="&xsd;int">234</GT_ID>
+        <consistof rdf:resource="&faa;Barcelona"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.le.ac.uk/travelAgencyOntology.owl#paris_City_Tour -->
+
+    <owl:NamedIndividual rdf:about="&faa;paris_City_Tour">
+        <rdf:type rdf:resource="&faa;GuidedTour"/>
+        <GT_ID rdf:datatype="&xsd;integer">598</GT_ID>
+        <GT_Timing rdf:datatype="&xsd;int">7</GT_Timing>
+        <GT_Details rdf:datatype="&xsd;string">Free City Tour around Paris</GT_Details>
+        <GT_Location rdf:datatype="&xsd;string">Paris</GT_Location>
+        <GT_MultiLocations rdf:datatype="&xsd;boolean">true</GT_MultiLocations>
+        <isIncluded rdf:resource="&faa;Autumn_Pkg"/>
+        <consistof rdf:resource="&faa;Louvre"/>
+        <consistof rdf:resource="&faa;The_Eiffel_tower"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotations
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="&owl;Thing">
+        <rdfs:comment rdf:datatype="&xsd;string">This ontology is about a travel agency named &quot;faa&quot;. It has its core classes as Accomodation, Package, Person, Place, Reservation, ThingstoDo, payment</rdfs:comment>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net -->
+
